@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CheckInCommand implements Command {
-    private Hotel hotel;
+    private final Hotel hotel;
 
     public CheckInCommand(Hotel hotel) {
         this.hotel = hotel;
@@ -28,7 +28,7 @@ public class CheckInCommand implements Command {
                 return;
             }
 
-            System.out.println("Enter check-in date (format: YYYY-MM-DD):");
+            System.out.println("Enter check-in date (format: YYYY-MM-DD) or press Enter for today:");
             LocalDate checkInDate = getValidDate(scanner);
 
             System.out.println("Enter stay duration:");
@@ -59,7 +59,13 @@ public class CheckInCommand implements Command {
     private LocalDate getValidDate(Scanner scanner) {
         while (true) {
             try {
-                String dateInput = scanner.nextLine();
+                String dateInput = scanner.nextLine().trim();
+
+                if (dateInput.isEmpty()) {
+                    System.out.println("No date entered. Using today's date: " + LocalDate.now());
+                    return LocalDate.now();
+                }
+
                 return LocalDate.parse(dateInput, DateTimeFormatter.ISO_LOCAL_DATE);
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format. Please use YYYY-MM-DD:");

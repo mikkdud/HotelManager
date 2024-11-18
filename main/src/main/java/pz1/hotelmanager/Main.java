@@ -7,7 +7,7 @@ public class Main {
         Hotel transylvania = new Hotel();
         Scanner scanner = new Scanner(System.in);
 
-        transylvania.addRoom(101, new Room(101, 200.0, 2));
+        transylvania.addRoom(101, new Room(101, 220.0, 2));
         transylvania.addRoom(102, new Room(102, 150.0, 1));
 
         while (true) {
@@ -25,17 +25,17 @@ public class Main {
                 case "checkin":
                     command = new CheckInCommand(transylvania);
                     break;
-//                case "checkout":
-//                    command = new CheckOutCommand(transylvania); // Zakładamy, że jest zaimplementowana
-//                    break;
-//                case "view":
-//                    command = new ViewCommand(transylvania); // Zakładamy, że jest zaimplementowana
-//                    break;
-//                case "prices":
-//                    command = new PricesCommand(transylvania); // Zakładamy, że jest zaimplementowana
-//                    break;
+                case "checkout":
+                    command = new CheckOutCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    break;
+                case "view":
+                    command = new ViewCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    break;
+                case "prices":
+                    command = new PricesCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    break;
                 case "list":
-                    command = new ListCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    command = new ListCommand(transylvania);
                     break;
                 case "exit":
                     System.out.println("Exiting program.");

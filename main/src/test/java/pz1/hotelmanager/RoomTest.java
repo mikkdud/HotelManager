@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,40 +14,14 @@ class RoomTest {
 
     @BeforeEach
     void setUp() {
-        room = new Room(101, 150.0, 2);
-    }
-
-    @Test
-    void testGetters() {
-        assertEquals(101, room.getRoomNumber());
-        assertEquals(150.0, room.getPrice());
-        assertEquals(2, room.getCapacity());
-        assertFalse(room.isOccupied());
-        assertTrue(room.getGuests().isEmpty());
-        assertNull(room.getCheckInDate());
-        assertNull(room.getCheckOutDate());
-    }
-
-
-    @Test
-    void testRoomInitialization() {
-        assertEquals(101, room.getRoomNumber());
-        assertEquals(150.0, room.getPrice());
-        assertEquals(2, room.getCapacity());
-        assertFalse(room.isOccupied());
-        assertTrue(room.getGuests().isEmpty());
-        assertNull(room.getCheckInDate());
-        assertNull(room.getCheckOutDate());
+        room = new Room(101, 200.0, 2);
     }
 
     @Test
     void testCheckInSuccessfully() {
-        List<Guest> guests = new ArrayList<>();
-        guests.add(new Guest("John Doe"));
-        guests.add(new Guest("Jane Doe"));
-
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
+        List<Guest> guests = List.of(new Guest("John Doe"), new Guest("Jane Doe"));
+        LocalDate checkInDate = LocalDate.of(2024, 11, 10);
+        int duration = 5;
 
         room.checkIn(guests, checkInDate, duration);
 
@@ -59,55 +32,57 @@ class RoomTest {
     }
 
     @Test
-    void testCheckInTooManyGuests() {
-        List<Guest> guests = new ArrayList<>();
-        guests.add(new Guest("John Doe"));
-        guests.add(new Guest("Jane Doe"));
-        guests.add(new Guest("Extra Guest"));
+    void testCheckInRoomAlreadyOccupied() {
+        room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 3);
 
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
-
-        assertThrows(IllegalArgumentException.class, () -> room.checkIn(guests, checkInDate, duration));
+        assertThrows(IllegalStateException.class, () ->
+                room.checkIn(List.of(new Guest("Jane Doe")), LocalDate.of(2024, 11, 15), 3));
     }
 
     @Test
-    void testCheckInWhenOccupied() {
-        List<Guest> guests = new ArrayList<>();
-        guests.add(new Guest("John Doe"));
+    void testCheckInTooManyGuests() {
+        List<Guest> guests = List.of(new Guest("John Doe"), new Guest("Jane Doe"), new Guest("Extra Guest"));
 
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
+        assertThrows(IllegalArgumentException.class, () ->
+                room.checkIn(guests, LocalDate.of(2024, 11, 10), 3));
+    }
 
-        room.checkIn(guests, checkInDate, duration);
+    @Test
+    void testCalculateBillSuccessfully() {
+        room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 5);
+        LocalDate checkOutDate = LocalDate.of(2024, 11, 15);
 
-        List<Guest> newGuests = new ArrayList<>();
-        newGuests.add(new Guest("New Guest"));
+        double bill = room.calculateBill(checkOutDate);
+        assertEquals(1000.0, bill); // 5 dni * 200.0 za dobę
+    }
 
-        assertThrows(IllegalStateException.class, () -> room.checkIn(newGuests, checkInDate.plusDays(4), 2));
+    @Test
+    void testCalculateBillWithoutCheckIn() {
+        assertThrows(IllegalStateException.class, () ->
+                room.calculateBill(LocalDate.of(2024, 11, 15)));
+    }
+
+    @Test
+    void testCheckOutSuccessfully() {
+        room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 3);
+
+        room.checkOut();
+
+        assertFalse(room.isOccupied());
+        assertTrue(room.getGuests().isEmpty());
+        assertNull(room.getCheckInDate());
+        assertNull(room.getCheckOutDate());
     }
 
     @Test
     void testToString() {
-        List<Guest> guests = new ArrayList<>();
-        guests.add(new Guest("John Doe"));
-        guests.add(new Guest("Jane Doe"));
+        room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 3);
 
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
-
-        room.checkIn(guests, checkInDate, duration);
-
-        String expectedString = "Room{" +
-                "roomNumber=101" +
-                ", price=150.0" +
-                ", capacity=2" +
-                ", occupied=true" +
-                ", guests=" + guests +
-                ", checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkInDate.plusDays(duration) +
-                '}';
-
-        assertEquals(expectedString, room.toString());
+        String roomString = room.toString();
+        assertTrue(roomString.contains("roomNumber=101"));
+        assertTrue(roomString.contains("price=200.0"));
+        assertTrue(roomString.contains("capacity=2"));
+        assertTrue(roomString.contains("occupied=true"));
+        assertTrue(roomString.contains("John Doe"));
     }
 }

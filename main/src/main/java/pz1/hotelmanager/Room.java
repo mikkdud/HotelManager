@@ -58,6 +58,21 @@ public class Room {
         this.guests = new ArrayList<>();
     }
 
+    public void checkIn(List<Guest> guests, LocalDate checkInDate, int duration) {
+        if (occupied) {
+            throw new IllegalStateException("Room is already occupied.");
+        }
+        if (guests.size() > capacity) {
+            throw new IllegalArgumentException("Too many guests for this room.");
+        }
+
+        this.guests = new ArrayList<>(guests);
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkInDate.plusDays(duration);
+        this.occupied = true;
+    }
+
+
     /**
      * Returns the room number.
      *

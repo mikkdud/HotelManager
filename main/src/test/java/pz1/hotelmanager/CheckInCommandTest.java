@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 class CheckInCommandTest {
 

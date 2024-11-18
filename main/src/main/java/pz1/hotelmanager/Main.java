@@ -14,16 +14,14 @@ public class Main {
             System.out.println("Enter command (checkin, checkout, view, prices, list, exit):");
             String input = scanner.nextLine().trim().toLowerCase();
 
-            String[] inputParts = input.split(" ");
-            String commandName = inputParts[0];
-            String[] commandArgs = new String[inputParts.length - 1];
-            if (inputParts.length > 1) {
-                System.arraycopy(inputParts, 1, commandArgs, 0, inputParts.length - 1);
+            if (input.contains(" ")) {
+                System.out.println("Error: Please enter a single word command only.");
+                continue;
             }
 
             Command command = null;
 
-            switch (commandName) {
+            switch (input) {
                 case "checkin":
                     command = new CheckInCommand(transylvania);
                     break;
@@ -48,9 +46,8 @@ public class Main {
             }
 
             if (command != null) {
-                command.execute(commandArgs);
+                command.execute(new String[]{}); // Pusta tablica argumentów
             }
         }
-
     }
 }

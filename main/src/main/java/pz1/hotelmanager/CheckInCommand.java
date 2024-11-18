@@ -88,13 +88,25 @@ public class CheckInCommand implements Command {
 
         for (int i = 0; i < maxCapacity; i++) {
             System.out.println("Enter guest name for person " + (i + 1) + ":");
-            String name = scanner.nextLine();
+            String name = scanner.nextLine().trim();
+
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty. Please enter a valid name:");
+                i--;
+                continue;
+            }
+
             guests.add(new Guest(name));
 
             if (i < maxCapacity - 1) {
-                System.out.println("Room has space for " + (maxCapacity - i - 1) + " more guest(s).");
-            } else {
-                System.out.println("Room is now full.");
+                System.out.println("Add another guest? (yes/no):");
+                String response = scanner.nextLine().trim().toLowerCase();
+
+                if (response.equals("no")) {
+                    break;
+                } else if (!response.equals("yes")) {
+                    System.out.println("Invalid input. Assuming 'yes'.");
+                }
             }
         }
 

@@ -2,6 +2,7 @@ package pz1.hotelmanager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pz1.hotelmanager.commands.PricesCommand;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

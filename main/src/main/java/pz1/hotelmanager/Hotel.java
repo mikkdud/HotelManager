@@ -13,7 +13,7 @@ public class Hotel {
         rooms.put(roomNumber, room);
     }
 
-    void checkIn(int roomNumber, List<Guest> guests, LocalDate checkInDate, int duration) {
+    public void checkIn(int roomNumber, List<Guest> guests, LocalDate checkInDate, int duration) {
         Room room = rooms.get(roomNumber);
         if (room == null) {
             throw new IllegalArgumentException("Room does not exist.");

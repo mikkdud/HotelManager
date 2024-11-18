@@ -2,6 +2,7 @@ package pz1.hotelmanager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pz1.hotelmanager.commands.CheckInCommand;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalDate;

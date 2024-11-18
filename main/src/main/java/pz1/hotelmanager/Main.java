@@ -1,5 +1,7 @@
 package pz1.hotelmanager;
 
+import pz1.hotelmanager.commands.*;
+
 import java.util.Scanner;
 
 public class Main {

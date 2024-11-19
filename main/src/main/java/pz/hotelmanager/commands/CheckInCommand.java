@@ -95,25 +95,23 @@ public class CheckInCommand implements Command {
         List<Guest> guests = new ArrayList<>();
         System.out.println("Enter guest details (max capacity: " + maxCapacity + "):");
 
-        int i = 0;
-        while (i < maxCapacity) {
+        for (int i = 0; i < maxCapacity; i++) {
             System.out.println("Enter guest name for person " + (i + 1) + ":");
             String name = scanner.nextLine().trim();
 
-            if (name.isEmpty()) {
+            while (name.isEmpty()) {
                 System.out.println("Name cannot be empty. Please enter a valid name:");
-                continue;
+                name = scanner.nextLine().trim();
             }
 
             guests.add(new Guest(name));
-            i++; // Increment only if a valid name is provided
 
-            if (i < maxCapacity) {
+            if (i < maxCapacity - 1) {
                 System.out.println("Add another guest? (yes/no):");
                 String response = scanner.nextLine().trim().toLowerCase();
 
                 if ("no".equals(response)) {
-                    break;
+                    break; // This is the only break statement we will use.
                 } else if (!"yes".equals(response)) {
                     System.out.println("Invalid input. Assuming 'yes'.");
                 }
@@ -122,5 +120,6 @@ public class CheckInCommand implements Command {
 
         return guests;
     }
+
 
 }

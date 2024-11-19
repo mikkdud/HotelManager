@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.projectKey>HotelManager</sonar.projectKey>
-        <sonar.token>squ_999048d20ef85ffb73221fd641fb2ea4c4b9a5d0</sonar.token>
+        <sonar.token>${env.SONAR_TOKEN}</sonar.token>
         <version.surefire.plugin>2.22.0</version.surefire.plugin>
         <version.junit.jupiter>5.8.2</version.junit.jupiter>
 

@@ -1,19 +1,32 @@
 package pz1.hotelmanager;
 
 import pz1.hotelmanager.commands.*;
+import pz1.hotelmanager.xlsxutils.HotelFileReader;
+import java.io.InputStream;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Hotel transylvania = new Hotel();
+        Hotel hotel = new Hotel();
         Scanner scanner = new Scanner(System.in);
 
-        transylvania.addRoom(101, new Room(101, 220.0, 2));
-        transylvania.addRoom(102, new Room(102, 150.0, 1));
+        try (InputStream is = Main.class.getResourceAsStream("/hotel_data.xlsx")) {
+            if (is == null) {
+                throw new IOException("File not found in resources.");
+            }
+            hotel = HotelFileReader.readFromXLSX(is);
+            System.out.println("Hotel data loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("Error loading hotel data: " + e.getMessage());
+        }
+
 
         while (true) {
-            System.out.println("Enter command (checkin, checkout, view, prices, list, exit):");
+            System.out.println("Enter command (checkin, checkout, view, prices, list, save, exit):");
             String input = scanner.nextLine().trim().toLowerCase();
 
             if (input.contains(" ")) {
@@ -25,19 +38,22 @@ public class Main {
 
             switch (input) {
                 case "checkin":
-                    command = new CheckInCommand(transylvania);
+                    command = new CheckInCommand(hotel);
                     break;
                 case "checkout":
-                    command = new CheckOutCommand(transylvania);
+                    command = new CheckOutCommand(hotel);
                     break;
                 case "view":
-                    command = new ViewCommand(transylvania);
+                    command = new ViewCommand(hotel);
                     break;
                 case "prices":
-                    command = new PricesCommand(transylvania);
+                    command = new PricesCommand(hotel);
                     break;
                 case "list":
-                    command = new ListCommand(transylvania);
+                    command = new ListCommand(hotel);
+                    break;
+                case "save":
+                    command = new SaveCommand(hotel);
                     break;
                 case "exit":
                     System.out.println("Exiting program.");
@@ -50,6 +66,7 @@ public class Main {
             if (command != null) {
                 command.execute(new String[]{}); // Pusta tablica argumentów
             }
+
         }
     }
 }

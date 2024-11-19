@@ -3,7 +3,7 @@ package pz1.hotelmanager;
 public class Guest {
     private final String name;
     private final int id;
-    private static int idIterator = 1;
+    static int idIterator = 1;
 
 
     public Guest(String name) {

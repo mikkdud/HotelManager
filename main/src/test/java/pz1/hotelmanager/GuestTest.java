@@ -10,9 +10,8 @@ class GuestTest {
     @BeforeEach
     void resetIdIterator() throws NoSuchFieldException, IllegalAccessException {
 
-        var field = Guest.class.getDeclaredField("idIterator");
-        field.setAccessible(true);
-        field.setInt(null, 1);
+        Guest.class.getDeclaredField("idIterator").setAccessible(true);
+        Guest.class.getDeclaredField("idIterator").setInt(null, 1);
     }
 
     @Test

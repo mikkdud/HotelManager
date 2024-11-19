@@ -12,8 +12,8 @@ class MyMapTest {
     void testPutNewKey() {
         MyMap<String, Integer> map = new MyMap<>();
         map.put("Key1", 100);
-        assertEquals(100, map.get("Key1"), "Value for 'Key1' should be 100");
-        assertEquals(1, map.keys().size(), "Map should contain 1 key");
+        assertEquals(100, (int)map.get("Key1"), "Value for 'Key1' should be 100");
+        assertEquals(1, (int)map.keys().size(), "Map should contain 1 key");
     }
 
     @Test
@@ -21,8 +21,8 @@ class MyMapTest {
         MyMap<String, Integer> map = new MyMap<>();
         map.put("Key1", 100);
         map.put("Key1", 200); // Update the value for existing key
-        assertEquals(200, map.get("Key1"), "Value for 'Key1' should be updated to 200");
-        assertEquals(1, map.keys().size(), "Map should still contain 1 key");
+        assertEquals(200, (int)map.get("Key1"), "Value for 'Key1' should be updated to 200");
+        assertEquals(1, (int)map.keys().size(), "Map should still contain 1 key");
     }
 
     @Test
@@ -56,7 +56,7 @@ class MyMapTest {
     void testGetExistingKey() {
         MyMap<String, Integer> map = new MyMap<>();
         map.put("Key1", 100);
-        assertEquals(100, map.get("Key1"), "Should return correct value for 'Key1'");
+        assertEquals(100, (int)map.get("Key1"), "Should return correct value for 'Key1'");
     }
 
     @Test

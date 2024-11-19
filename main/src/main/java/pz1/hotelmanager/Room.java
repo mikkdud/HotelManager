@@ -88,14 +88,14 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "roomNumber=" + roomNumber +
-                ", price=" + price +
-                ", capacity=" + capacity +
-                ", occupied=" + occupied +
-                ", guests=" + guests +
-                ", checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkOutDate +
-                '}';
+        return  "---" +
+                "\nRoom " + roomNumber + ":" +
+                "\nprice: " + price +
+                "\ncapacity: " + capacity +
+                "\noccupied: " + occupied +
+                "\nguests: " + guests +
+                "\ncheckInDate: " + checkInDate +
+                "\ncheckOutDate: " + checkOutDate
+                + "\n---\n";
     }
 }

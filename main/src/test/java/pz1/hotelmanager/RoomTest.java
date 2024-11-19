@@ -79,10 +79,13 @@ class RoomTest {
         room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 3);
 
         String roomString = room.toString();
-        assertTrue(roomString.contains("roomNumber=101"));
-        assertTrue(roomString.contains("price=200.0"));
-        assertTrue(roomString.contains("capacity=2"));
-        assertTrue(roomString.contains("occupied=true"));
-        assertTrue(roomString.contains("John Doe"));
+
+        assertTrue(roomString.contains("Room 101:"));
+        assertTrue(roomString.contains("price: 200.0"));
+        assertTrue(roomString.contains("capacity: 2"));
+        assertTrue(roomString.contains("occupied: true"));
+        assertTrue(roomString.contains("checkInDate: 2024-11-10"));
+        assertTrue(roomString.contains("checkOutDate: 2024-11-13"));
     }
+
 }

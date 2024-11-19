@@ -22,9 +22,8 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "Guest{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                '}';
+        return "Guest: " +
+                name +
+                " (ID:" + id + ')';
     }
 }

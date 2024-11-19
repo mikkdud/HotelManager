@@ -28,23 +28,23 @@ public class Main {
                     command = new CheckInCommand(transylvania);
                     break;
                 case "checkout":
-                    command = new CheckOutCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    command = new CheckOutCommand(transylvania);
                     break;
                 case "view":
-                    command = new ViewCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    command = new ViewCommand(transylvania);
                     break;
                 case "prices":
-                    command = new PricesCommand(transylvania); // Zakładamy, że jest zaimplementowana
+                    command = new PricesCommand(transylvania);
                     break;
                 case "list":
                     command = new ListCommand(transylvania);
                     break;
                 case "exit":
                     System.out.println("Exiting program.");
-                    return; // Kończy program
+                    return;
                 default:
                     System.out.println("Unknown command. Please try again.");
-                    continue; // Pętla przechodzi do kolejnej iteracji
+                    continue;
             }
 
             if (command != null) {

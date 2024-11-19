@@ -34,8 +34,8 @@ class ViewCommandTest {
 
         String output = outputStream.toString().trim();
         assertTrue(output.contains("Room details:"));
-        assertTrue(output.contains("roomNumber=101"));
-        assertTrue(output.contains("price=200.0"));
+        assertTrue(output.contains("Room 101:"));
+        assertTrue(output.contains("price: 200.0"));
     }
 
     @Test

@@ -46,7 +46,7 @@ class GuestTest {
     @Test
     void testToString() {
         Guest guest = new Guest("Charlie");
-        String expected = "Guest{name='Charlie', id='1'}";
+        String expected = "Guest: Charlie (ID:1)";
         assertEquals(expected, guest.toString());
     }
 }

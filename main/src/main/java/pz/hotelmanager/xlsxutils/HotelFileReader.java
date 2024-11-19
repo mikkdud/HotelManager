@@ -16,6 +16,10 @@ import java.util.List;
 
 public class HotelFileReader {
 
+    private HotelFileReader() {
+        throw new UnsupportedOperationException("HotelFileReader is a utility class and cannot be instantiated.");
+    }
+
     public static Hotel readFromXLSX(String filePath) throws IOException {
         try (InputStream inputStream = new FileInputStream(filePath)) {
             return readFromXLSX(inputStream);
@@ -29,7 +33,7 @@ public class HotelFileReader {
             Sheet sheet = workbook.getSheetAt(0);
 
             for (Row row : sheet) {
-                if (row.getRowNum() == 0) continue; // Pomijanie nagłówka
+                if (row.getRowNum() == 0) continue; // Skip header row
 
                 int roomNumber = (int) getNumericValue(row.getCell(0));
                 double price = getNumericValue(row.getCell(1));

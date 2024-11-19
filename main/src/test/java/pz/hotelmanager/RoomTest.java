@@ -35,16 +35,22 @@ class RoomTest {
     void testCheckInRoomAlreadyOccupied() {
         room.checkIn(List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 10), 3);
 
-        assertThrows(IllegalStateException.class, () ->
-                room.checkIn(List.of(new Guest("Jane Doe")), LocalDate.of(2024, 11, 15), 3));
+        assertThrows(IllegalStateException.class, () -> attemptCheckIn(room));
+    }
+
+    private void attemptCheckIn(Room room) {
+        room.checkIn(List.of(new Guest("Jane Doe")), LocalDate.of(2024, 11, 15), 3);
     }
 
     @Test
     void testCheckInTooManyGuests() {
         List<Guest> guests = List.of(new Guest("John Doe"), new Guest("Jane Doe"), new Guest("Extra Guest"));
 
-        assertThrows(IllegalArgumentException.class, () ->
-                room.checkIn(guests, LocalDate.of(2024, 11, 10), 3));
+        assertThrows(IllegalArgumentException.class, () -> attemptTooManyGuestsCheckIn(room, guests));
+    }
+
+    private void attemptTooManyGuestsCheckIn(Room room, List<Guest> guests) {
+        room.checkIn(guests, LocalDate.of(2024, 11, 10), 3);
     }
 
     @Test
@@ -58,8 +64,11 @@ class RoomTest {
 
     @Test
     void testCalculateBillWithoutCheckIn() {
-        assertThrows(IllegalStateException.class, () ->
-                room.calculateBill(LocalDate.of(2024, 11, 15)));
+        assertThrows(IllegalStateException.class, () -> attemptCalculateBill(room));
+    }
+
+    private void attemptCalculateBill(Room room) {
+        room.calculateBill(LocalDate.of(2024, 11, 15));
     }
 
     @Test
@@ -87,5 +96,4 @@ class RoomTest {
         assertTrue(roomString.contains("checkInDate: 2024-11-10"));
         assertTrue(roomString.contains("checkOutDate: 2024-11-13"));
     }
-
 }

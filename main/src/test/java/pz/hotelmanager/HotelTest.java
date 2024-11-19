@@ -51,13 +51,11 @@ class HotelTest {
 
     @Test
     void testCheckInNonExistentRoom() {
-        List<Guest> guests = new ArrayList<>();
-        guests.add(new Guest("John Doe"));
+        assertThrows(IllegalArgumentException.class, () -> attemptCheckInNonExistentRoom());
+    }
 
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
-
-        assertThrows(IllegalArgumentException.class, () -> hotel.checkIn(999, guests, checkInDate, duration));
+    private void attemptCheckInNonExistentRoom() {
+        hotel.checkIn(999, List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 20), 3);
     }
 
     @Test
@@ -68,12 +66,13 @@ class HotelTest {
         List<Guest> guests2 = new ArrayList<>();
         guests2.add(new Guest("Jane Doe"));
 
-        LocalDate checkInDate = LocalDate.of(2024, 11, 20);
-        int duration = 3;
+        hotel.checkIn(101, guests1, LocalDate.of(2024, 11, 20), 3);
 
-        hotel.checkIn(101, guests1, checkInDate, duration);
+        assertThrows(IllegalStateException.class, () -> attemptCheckInOccupiedRoom(guests2));
+    }
 
-        assertThrows(IllegalStateException.class, () -> hotel.checkIn(101, guests2, checkInDate.plusDays(1), 2));
+    private void attemptCheckInOccupiedRoom(List<Guest> guests) {
+        hotel.checkIn(101, guests, LocalDate.of(2024, 11, 21), 2);
     }
 
     @Test

@@ -45,7 +45,7 @@ public class Main {
         }
     }
 
-    private static Command getCommand(String input, Hotel hotel, String filePath) {
+    static Command getCommand(String input, Hotel hotel, String filePath) {
         switch (input) {
             case "checkin":
                 return new CheckInCommand(hotel);

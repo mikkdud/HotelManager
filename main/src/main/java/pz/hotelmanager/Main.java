@@ -8,11 +8,9 @@ import java.util.Scanner;
 
 /**
  * Main entry point for the Hotel Management application.
- * <p>
  * This class handles user interaction via the command line, allowing users
  * to perform operations such as checking in guests, checking out guests,
  * viewing room details, listing all rooms, saving hotel data, and more.
- * </p>
  */
 public class Main {
 

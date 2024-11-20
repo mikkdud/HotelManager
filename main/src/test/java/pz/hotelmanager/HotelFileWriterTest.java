@@ -13,10 +13,17 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link HotelFileWriter} class.
+ */
 class HotelFileWriterTest {
 
     private final String testFilePath = "test_hotel_data.xlsx";
 
+    /**
+     * Cleans up the test file after each test execution.
+     * Ensures that the test environment is reset by deleting the generated file.
+     */
     @AfterEach
     void cleanup() {
         File testFile = new File(testFilePath);
@@ -25,6 +32,13 @@ class HotelFileWriterTest {
         }
     }
 
+    /**
+     * Tests the {@link HotelFileWriter#writeToXLSX(Hotel, String)} method.
+     * Verifies that the hotel data is correctly written to an XLSX file and
+     * that the output file can be opened as a valid workbook.
+     *
+     * @throws IOException if an I/O error occurs while reading the test file.
+     */
     @Test
     void testWriteToXLSX() throws IOException {
         // Arrange

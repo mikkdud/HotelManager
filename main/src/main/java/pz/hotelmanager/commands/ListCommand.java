@@ -6,13 +6,28 @@ import pz.hotelmanager.Room;
 
 import java.util.List;
 
+/**
+ * Command to list all rooms in the hotel along with their details.
+ * Displays information such as price, capacity, occupancy status, and guest details.
+ */
 public class ListCommand implements Command {
     private final Hotel hotel;
 
+    /**
+     * Constructs a ListCommand with the specified hotel.
+     *
+     * @param hotel the hotel whose rooms will be listed
+     */
     public ListCommand(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    /**
+     * Executes the command to list all rooms in the hotel.
+     * Displays details of each room including its occupancy status and guest information if occupied.
+     *
+     * @param args not used in this command
+     */
     @Override
     public void execute(String[] args) {
         List<Integer> roomNumbers = hotel.getAllRoomNumbers();

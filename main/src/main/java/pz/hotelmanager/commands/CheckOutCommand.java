@@ -6,13 +6,29 @@ import pz.hotelmanager.Room;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Command class to handle the check-out process for a hotel.
+ * It prompts the user for the room number, calculates the bill,
+ * and marks the room as checked out.
+ */
 public class CheckOutCommand implements Command {
     private final Hotel hotel;
 
+    /**
+     * Constructs a CheckOutCommand with the given hotel.
+     *
+     * @param hotel the hotel instance where the check-out operation will be performed
+     */
     public CheckOutCommand(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    /**
+     * Executes the check-out operation by prompting the user for a room number,
+     * calculating the bill, and updating the room status.
+     *
+     * @param args optional arguments (not used in this command)
+     */
     @Override
     public void execute(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -44,6 +60,12 @@ public class CheckOutCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user for a valid room number until a valid integer is provided.
+     *
+     * @param scanner the scanner for reading user input
+     * @return a valid room number as an integer
+     */
     private int getValidRoomNumber(Scanner scanner) {
         while (true) {
             try {

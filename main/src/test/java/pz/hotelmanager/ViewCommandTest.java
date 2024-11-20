@@ -10,10 +10,18 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link ViewCommand} class.
+ */
 class ViewCommandTest {
+
     private Hotel hotel;
     private ByteArrayOutputStream outputStream;
 
+    /**
+     * Sets up the test environment by initializing a {@link Hotel} with sample rooms
+     * and redirecting system output to capture console messages.
+     */
     @BeforeEach
     void setUp() {
         hotel = new Hotel();
@@ -24,6 +32,10 @@ class ViewCommandTest {
         System.setOut(new PrintStream(outputStream));
     }
 
+    /**
+     * Tests the {@link ViewCommand#execute(String[])} method for an existing room.
+     * Verifies that the correct room details are displayed.
+     */
     @Test
     void testViewExistingRoom() {
         String input = "101\n";
@@ -38,6 +50,10 @@ class ViewCommandTest {
         assertTrue(output.contains("price: 200.0"));
     }
 
+    /**
+     * Tests the {@link ViewCommand#execute(String[])} method for a non-existent room.
+     * Verifies that an appropriate message is displayed.
+     */
     @Test
     void testViewNonExistentRoom() {
         String input = "999\n";
@@ -50,7 +66,10 @@ class ViewCommandTest {
         assertTrue(output.contains("Room number 999 does not exist."));
     }
 
-
+    /**
+     * Tests the {@link ViewCommand#execute(String[])} method for an invalid room number input.
+     * Verifies that the user is prompted to enter a valid integer.
+     */
     @Test
     void testInvalidRoomNumber() {
         String input = "abc\n101\n";

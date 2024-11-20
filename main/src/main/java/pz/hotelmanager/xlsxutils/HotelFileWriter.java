@@ -11,12 +11,26 @@ import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * Utility class for writing hotel data to an Excel file.
+ */
 public class HotelFileWriter {
 
+    /**
+     * Private constructor to prevent instantiation.
+     * This class is intended to be used as a utility.
+     */
     private HotelFileWriter() {
         throw new UnsupportedOperationException("HotelFileWriter is a utility class and cannot be instantiated.");
     }
 
+    /**
+     * Writes hotel data to an Excel file at the specified file path.
+     *
+     * @param hotel    the {@link Hotel} object containing the data to write
+     * @param filePath the path to the Excel file where the data will be written
+     * @throws IOException if an I/O error occurs during file writing
+     */
     public static void writeToXLSX(Hotel hotel, String filePath) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Hotel Data");
@@ -31,7 +45,7 @@ public class HotelFileWriter {
             headerRow.createCell(5).setCellValue("Check-In Date");
             headerRow.createCell(6).setCellValue("Duration");
 
-            // Fill data
+            // Fill data rows with room details
             List<Integer> roomNumbers = hotel.getAllRoomNumbers();
             int rowNum = 1;
 
@@ -59,7 +73,7 @@ public class HotelFileWriter {
                 }
             }
 
-            // Write to file
+            // Write the workbook to the file
             try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
                 workbook.write(fileOut);
             }

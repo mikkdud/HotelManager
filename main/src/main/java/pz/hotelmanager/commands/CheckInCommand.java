@@ -11,13 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Command class to handle the check-in process for guests in a hotel.
+ * It prompts the user for necessary information such as room number, check-in date, stay duration,
+ * and guest details, and performs the check-in operation.
+ */
 public class CheckInCommand implements Command {
     private final Hotel hotel;
 
+    /**
+     * Constructs a CheckInCommand with the given hotel.
+     *
+     * @param hotel the hotel instance where the check-in operation will be performed
+     */
     public CheckInCommand(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    /**
+     * Executes the check-in operation by gathering input from the user.
+     *
+     * @param args optional arguments (not used in this command)
+     */
     @Override
     public void execute(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -49,6 +64,12 @@ public class CheckInCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user for a valid room number until a valid integer is provided.
+     *
+     * @param scanner the scanner for reading user input
+     * @return a valid room number as an integer
+     */
     private int getValidRoomNumber(Scanner scanner) {
         while (true) {
             try {
@@ -59,6 +80,13 @@ public class CheckInCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user for a valid check-in date in the format YYYY-MM-DD.
+     * Defaults to the current date if no input is provided.
+     *
+     * @param scanner the scanner for reading user input
+     * @return a valid LocalDate object
+     */
     private LocalDate getValidDate(Scanner scanner) {
         while (true) {
             try {
@@ -76,6 +104,13 @@ public class CheckInCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user for a positive integer value.
+     *
+     * @param scanner      the scanner for reading user input
+     * @param errorMessage the message to display for invalid input
+     * @return a valid positive integer
+     */
     private int getValidInteger(Scanner scanner, String errorMessage) {
         while (true) {
             try {
@@ -91,6 +126,13 @@ public class CheckInCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user to input guest details, ensuring the input does not exceed the room capacity.
+     *
+     * @param scanner    the scanner for reading user input
+     * @param maxCapacity the maximum number of guests allowed in the room
+     * @return a list of guests for the room
+     */
     private List<Guest> getGuestsFromInput(Scanner scanner, int maxCapacity) {
         List<Guest> guests = new ArrayList<>();
         System.out.println("Enter guest details (max capacity: " + maxCapacity + "):");
@@ -111,7 +153,7 @@ public class CheckInCommand implements Command {
                 String response = scanner.nextLine().trim().toLowerCase();
 
                 if ("no".equals(response)) {
-                    break; // This is the only break statement we will use.
+                    break; // Exit the loop if the user does not want to add more guests
                 } else if (!"yes".equals(response)) {
                     System.out.println("Invalid input. Assuming 'yes'.");
                 }
@@ -120,6 +162,4 @@ public class CheckInCommand implements Command {
 
         return guests;
     }
-
-
 }

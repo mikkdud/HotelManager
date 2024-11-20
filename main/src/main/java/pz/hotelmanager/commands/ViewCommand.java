@@ -5,13 +5,28 @@ import pz.hotelmanager.Room;
 
 import java.util.Scanner;
 
+/**
+ * Command to view the details of a specific room in the hotel.
+ */
 public class ViewCommand implements Command {
     private final Hotel hotel;
 
+    /**
+     * Constructs a ViewCommand with the specified hotel.
+     *
+     * @param hotel the hotel whose room details will be viewed
+     */
     public ViewCommand(Hotel hotel) {
         this.hotel = hotel;
     }
 
+    /**
+     * Executes the command to view the details of a specified room.
+     * Prompts the user for a room number, retrieves the room details,
+     * and displays them. If the room does not exist, an error message is displayed.
+     *
+     * @param args not used in this command
+     */
     @Override
     public void execute(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -33,6 +48,12 @@ public class ViewCommand implements Command {
         }
     }
 
+    /**
+     * Prompts the user until a valid room number is provided.
+     *
+     * @param scanner the scanner to read user input
+     * @return a valid room number
+     */
     private int getValidRoomNumber(Scanner scanner) {
         while (true) {
             try {

@@ -14,18 +14,39 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class for reading hotel data from an Excel file.
+ */
 public class HotelFileReader {
 
+    /**
+     * Private constructor to prevent instantiation.
+     * This class is intended to be used as a utility.
+     */
     private HotelFileReader() {
         throw new UnsupportedOperationException("HotelFileReader is a utility class and cannot be instantiated.");
     }
 
+    /**
+     * Reads hotel data from an Excel file at the specified file path.
+     *
+     * @param filePath the path to the Excel file
+     * @return a {@link Hotel} object populated with the data from the file
+     * @throws IOException if an I/O error occurs during file reading
+     */
     public static Hotel readFromXLSX(String filePath) throws IOException {
         try (InputStream inputStream = new FileInputStream(filePath)) {
             return readFromXLSX(inputStream);
         }
     }
 
+    /**
+     * Reads hotel data from an Excel file provided as an input stream.
+     *
+     * @param inputStream the input stream of the Excel file
+     * @return a {@link Hotel} object populated with the data from the stream
+     * @throws IOException if an I/O error occurs during stream reading
+     */
     public static Hotel readFromXLSX(InputStream inputStream) throws IOException {
         Hotel hotel = new Hotel();
 
@@ -61,6 +82,13 @@ public class HotelFileReader {
         return hotel;
     }
 
+    /**
+     * Extracts a numeric value from a cell.
+     *
+     * @param cell the cell to extract the value from
+     * @return the numeric value of the cell
+     * @throws IllegalStateException if the cell type is unexpected or the value cannot be parsed
+     */
     private static double getNumericValue(Cell cell) {
         if (cell == null) {
             throw new IllegalStateException("Cell is null and cannot be parsed.");
@@ -80,6 +108,13 @@ public class HotelFileReader {
         }
     }
 
+    /**
+     * Extracts a string value from a cell.
+     *
+     * @param cell the cell to extract the value from
+     * @return the string value of the cell
+     * @throws IllegalStateException if the cell type is unexpected
+     */
     private static String getStringValue(Cell cell) {
         if (cell == null) {
             return "";
@@ -95,6 +130,13 @@ public class HotelFileReader {
         }
     }
 
+    /**
+     * Parses a date from a cell.
+     *
+     * @param cell the cell containing the date
+     * @return the parsed {@link LocalDate}
+     * @throws IllegalStateException if the cell type is unexpected or the date cannot be parsed
+     */
     private static LocalDate parseDate(Cell cell) {
         if (cell == null) {
             throw new IllegalStateException("Date cell is null.");

@@ -9,10 +9,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link Hotel} class.
+ */
 class HotelTest {
 
     private Hotel hotel;
 
+    /**
+     * Sets up a new {@link Hotel} instance with predefined rooms before each test.
+     */
     @BeforeEach
     void setUp() {
         hotel = new Hotel();
@@ -20,6 +26,10 @@ class HotelTest {
         hotel.addRoom(102, new Room(102, 200.0, 3));
     }
 
+    /**
+     * Tests adding and retrieving rooms from the hotel.
+     * Verifies that an added room can be correctly retrieved, and non-existent rooms return null.
+     */
     @Test
     void testAddRoomAndRetrieve() {
         Room room = hotel.getRoom(101);
@@ -31,6 +41,10 @@ class HotelTest {
         assertNull(nonExistentRoom);
     }
 
+    /**
+     * Tests checking in guests into a room.
+     * Verifies that the room is marked as occupied and all guest details are correctly recorded.
+     */
     @Test
     void testCheckInSuccessfully() {
         List<Guest> guests = new ArrayList<>();
@@ -49,6 +63,10 @@ class HotelTest {
         assertEquals(checkInDate.plusDays(duration), room.getCheckOutDate());
     }
 
+    /**
+     * Tests attempting to check in guests to a non-existent room.
+     * Verifies that an {@link IllegalArgumentException} is thrown.
+     */
     @Test
     void testCheckInNonExistentRoom() {
         assertThrows(IllegalArgumentException.class, () -> attemptCheckInNonExistentRoom());
@@ -58,6 +76,10 @@ class HotelTest {
         hotel.checkIn(999, List.of(new Guest("John Doe")), LocalDate.of(2024, 11, 20), 3);
     }
 
+    /**
+     * Tests attempting to check in guests to an already occupied room.
+     * Verifies that an {@link IllegalStateException} is thrown.
+     */
     @Test
     void testCheckInOccupiedRoom() {
         List<Guest> guests1 = new ArrayList<>();
@@ -75,6 +97,10 @@ class HotelTest {
         hotel.checkIn(101, guests, LocalDate.of(2024, 11, 21), 2);
     }
 
+    /**
+     * Tests retrieving all room numbers in the hotel.
+     * Verifies that the returned list contains the correct room numbers.
+     */
     @Test
     void testGetAllRoomNumbers() {
         List<Integer> roomNumbers = hotel.getAllRoomNumbers();

@@ -9,10 +9,16 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the {@link PricesCommand} class.
+ */
 class PricesCommandTest {
     private Hotel hotel;
     private ByteArrayOutputStream outputStream;
 
+    /**
+     * Sets up the test environment by initializing the {@link Hotel} object and capturing system output.
+     */
     @BeforeEach
     void setUp() {
         hotel = new Hotel();
@@ -23,6 +29,10 @@ class PricesCommandTest {
         System.setOut(new PrintStream(outputStream));
     }
 
+    /**
+     * Tests the {@code execute} method of {@link PricesCommand} when rooms are present in the hotel.
+     * Verifies that the correct room prices are printed.
+     */
     @Test
     void testExecuteWithRooms() {
         PricesCommand command = new PricesCommand(hotel);
@@ -33,6 +43,10 @@ class PricesCommandTest {
         assertTrue(output.contains("Room 102: $150,00 per night"));
     }
 
+    /**
+     * Tests the {@code execute} method of {@link PricesCommand} when no rooms are available in the hotel.
+     * Verifies that the appropriate message is printed.
+     */
     @Test
     void testExecuteWithoutRooms() {
         hotel = new Hotel(); // No rooms

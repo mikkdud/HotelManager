@@ -8,10 +8,17 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link SaveCommand} class.
+ */
 class SaveCommandTest {
 
     private final String testFilePath = "test_hotel_data_save.xlsx";
 
+    /**
+     * Cleans up the test file after each test.
+     * Ensures the file created during testing is deleted.
+     */
     @AfterEach
     void cleanup() {
         File testFile = new File(testFilePath);
@@ -20,6 +27,11 @@ class SaveCommandTest {
         }
     }
 
+    /**
+     * Tests that the {@link SaveCommand#execute(String[])} method successfully creates
+     * the expected file.
+     * Ensures that the command generates a file at the specified location.
+     */
     @Test
     void testExecute() {
         // Arrange
